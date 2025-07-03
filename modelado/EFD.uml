@@ -13,6 +13,7 @@
           <ownedAttribute xmi:type="uml:Property" xmi:id="_HCk7MFdbEfC7ocLnWuU1rw" name="section_rails" visibility="private"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_KmXyEFdbEfC7ocLnWuU1rw" name="switchs" visibility="private"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_dc0ToFdbEfC7ocLnWuU1rw" name="signals" visibility="private"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_l6PoUFgeEfCoRMFlgbh8KA" name="blockades" visibility="private"/>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_Tas8QFacEfC7ocLnWuU1rw" name="Route"/>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_mmkewFadEfC7ocLnWuU1rw" name="Signal"/>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_LJYUYFaeEfC7ocLnWuU1rw" name="switch"/>

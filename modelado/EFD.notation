@@ -19,6 +19,10 @@
           <element xmi:type="uml:Property" href="EFD.uml#_dc0ToFdbEfC7ocLnWuU1rw"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_dc-rsVdbEfC7ocLnWuU1rw"/>
         </children>
+        <children xmi:type="notation:Shape" xmi:id="_l7BEYFgeEfCoRMFlgbh8KA" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="EFD.uml#_l6PoUFgeEfCoRMFlgbh8KA"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_l7BEYVgeEfCoRMFlgbh8KA"/>
+        </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_dRHkkVaYEfC7ocLnWuU1rw"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_dRHkklaYEfC7ocLnWuU1rw"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_dRHkk1aYEfC7ocLnWuU1rw"/>
