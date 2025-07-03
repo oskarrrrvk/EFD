@@ -23,7 +23,6 @@
           <ownedAttribute xmi:type="uml:Property" xmi:id="_GnJJIFdrEfC7ocLnWuU1rw" name="INVERTED" visibility="private"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_kFzKEFdsEfC7ocLnWuU1rw" name="switches"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_ke3QsFd0EfCPBPtZlrPchw" name="ERROR" visibility="private"/>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="__iHM4Fd6EfCPBPtZlrPchw" name="stablishPositions"/>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_L1K58Fd7EfCPBPtZlrPchw" name="readPositions"/>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_UddlcFd7EfCPBPtZlrPchw" name="checkPositions"/>
         </packagedElement>
@@ -47,14 +46,10 @@
           <ownedOperation xmi:type="uml:Operation" xmi:id="_b_MNIFddEfC7ocLnWuU1rw" name="release_sections"/>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_WCZCEFdeEfC7ocLnWuU1rw" name="route_sections"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_WobtYFdpEfC7ocLnWuU1rw" name="Giroscope1"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_iJGCQFdrEfC7ocLnWuU1rw" name="Giroscope2"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_mgQPwFdrEfC7ocLnWuU1rw" name="Giroscope3"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_ntYxQFdrEfC7ocLnWuU1rw" name="Giroscope4"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_jH6s4FdpEfC7ocLnWuU1rw" name="Servo1"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_Z4v8sFdrEfC7ocLnWuU1rw" name="Servo2"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_kQ8fkFdrEfC7ocLnWuU1rw" name="Servo3"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_lbsbcFdrEfC7ocLnWuU1rw" name="Servo4"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_eTsx4FgXEfCoRMFlgbh8KA" name="Switch1"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_kbU3cFgXEfCoRMFlgbh8KA" name="Switch2"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_kQ8fkFdrEfC7ocLnWuU1rw" name="Switch3"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_lbsbcFdrEfC7ocLnWuU1rw" name="Switch4"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_E8WecFdvEfC7ocLnWuU1rw" name="632"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_J6biAFdvEfC7ocLnWuU1rw" name="E'1"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_LWAIIFdvEfC7ocLnWuU1rw" name="E1"/>
@@ -80,17 +75,12 @@
         <packagedElement xmi:type="uml:Class" xmi:id="_Ni3kIFd2EfCPBPtZlrPchw" name="Detector9"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_ORaFIFd2EfCPBPtZlrPchw" name="Detector10"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_O51-IFd2EfCPBPtZlrPchw" name="Detector11"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_rRp2UFd4EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_O51-IFd2EfCPBPtZlrPchw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_uC_VgFd4EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_ORaFIFd2EfCPBPtZlrPchw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_xrvk4Fd4EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_Ni3kIFd2EfCPBPtZlrPchw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="__B01MFd4EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_MvDhkFd2EfCPBPtZlrPchw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_FNKWEFd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_L00G4Fd2EfCPBPtZlrPchw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_OpXx0Fd5EfCPBPtZlrPchw" name="read" client="_BwQtEFaXEfC7ocLnWuU1rw" supplier="_LE2pkFd2EfCPBPtZlrPchw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_gRpQEFd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_CPgZgFd2EfCPBPtZlrPchw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_mFgFEFd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_BXXQkFd2EfCPBPtZlrPchw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_oJYBUFd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_45noMFd1EfCPBPtZlrPchw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_rdy_cFd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_3-mKYFd1EfCPBPtZlrPchw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_waos4Fd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_1PNL8Fd1EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_BYslsFgYEfCoRMFlgbh8KA" name="change position" client="_dcXuIFafEfC7ocLnWuU1rw" supplier="_kbU3cFgXEfCoRMFlgbh8KA"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_B7f7UFgZEfCoRMFlgbh8KA" name="change position" client="_dcXuIFafEfC7ocLnWuU1rw" supplier="_eTsx4FgXEfCoRMFlgbh8KA"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_oadXwFgdEfCoRMFlgbh8KA" name="send position" client="_kQ8fkFdrEfC7ocLnWuU1rw" supplier="_dcXuIFafEfC7ocLnWuU1rw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_qvmqMFgdEfCoRMFlgbh8KA" name="send position" client="_lbsbcFdrEfC7ocLnWuU1rw" supplier="_dcXuIFafEfC7ocLnWuU1rw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_u5TqgFgdEfCoRMFlgbh8KA" name="send position" client="_kbU3cFgXEfCoRMFlgbh8KA" supplier="_dcXuIFafEfC7ocLnWuU1rw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_yMvxMFgdEfCoRMFlgbh8KA" name="send position" client="_eTsx4FgXEfCoRMFlgbh8KA" supplier="_dcXuIFafEfC7ocLnWuU1rw"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_aOKw8FaYEfC7ocLnWuU1rw" name="relations">
         <packagedElement xmi:type="uml:Usage" xmi:id="_xgtnIFdYEfC7ocLnWuU1rw" name="change direction" client="_cNouUFaYEfC7ocLnWuU1rw" supplier="_dcXuIFafEfC7ocLnWuU1rw"/>
@@ -99,14 +89,8 @@
         <packagedElement xmi:type="uml:Usage" xmi:id="_ZopwYFdZEfC7ocLnWuU1rw" name="send aspect" client="_hIFK4FafEfC7ocLnWuU1rw" supplier="_cNouUFaYEfC7ocLnWuU1rw"/>
         <packagedElement xmi:type="uml:Usage" xmi:id="_hbL4kFdZEfC7ocLnWuU1rw" name="ocupy section" client="_BwQtEFaXEfC7ocLnWuU1rw" supplier="_ls2WkFafEfC7ocLnWuU1rw"/>
         <packagedElement xmi:type="uml:Usage" xmi:id="_xNXicFdaEfC7ocLnWuU1rw" name="send state" client="_BwQtEFaXEfC7ocLnWuU1rw" supplier="_BwQtEFaXEfC7ocLnWuU1rw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_w8vusFdpEfC7ocLnWuU1rw" name="update position" client="_dcXuIFafEfC7ocLnWuU1rw" supplier="_jH6s4FdpEfC7ocLnWuU1rw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_74mGUFdrEfC7ocLnWuU1rw" name="update position" client="_dcXuIFafEfC7ocLnWuU1rw" supplier="_Z4v8sFdrEfC7ocLnWuU1rw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_Eho_wFdsEfC7ocLnWuU1rw" name="read position" client="_dcXuIFafEfC7ocLnWuU1rw" supplier="_iJGCQFdrEfC7ocLnWuU1rw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_GTc7oFdsEfC7ocLnWuU1rw" name="read position" client="_dcXuIFafEfC7ocLnWuU1rw" supplier="_WobtYFdpEfC7ocLnWuU1rw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_QdvlYFdsEfC7ocLnWuU1rw" name="read position" client="_dcXuIFafEfC7ocLnWuU1rw" supplier="_mgQPwFdrEfC7ocLnWuU1rw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_S_UxUFdsEfC7ocLnWuU1rw" name="update position" client="_dcXuIFafEfC7ocLnWuU1rw" supplier="_kQ8fkFdrEfC7ocLnWuU1rw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_ZX3AsFdsEfC7ocLnWuU1rw" name="update position" client="_BwQtEFaXEfC7ocLnWuU1rw" supplier="_lbsbcFdrEfC7ocLnWuU1rw"/>
-        <packagedElement xmi:type="uml:Usage" xmi:id="_dyFJQFdsEfC7ocLnWuU1rw" name="read position" client="_dcXuIFafEfC7ocLnWuU1rw" supplier="_ntYxQFdrEfC7ocLnWuU1rw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_S_UxUFdsEfC7ocLnWuU1rw" name="change position" client="_dcXuIFafEfC7ocLnWuU1rw" supplier="_kQ8fkFdrEfC7ocLnWuU1rw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_ZX3AsFdsEfC7ocLnWuU1rw" name="change position" client="_BwQtEFaXEfC7ocLnWuU1rw" supplier="_lbsbcFdrEfC7ocLnWuU1rw"/>
         <packagedElement xmi:type="uml:Usage" xmi:id="_26DL4FdvEfC7ocLnWuU1rw" name="Change aspect" client="_hIFK4FafEfC7ocLnWuU1rw" supplier="_E8WecFdvEfC7ocLnWuU1rw"/>
         <packagedElement xmi:type="uml:Usage" xmi:id="_FvcS0FdwEfC7ocLnWuU1rw" name="change aspect" client="_hIFK4FafEfC7ocLnWuU1rw" supplier="_J6biAFdvEfC7ocLnWuU1rw"/>
         <packagedElement xmi:type="uml:Usage" xmi:id="_MXXpEFdwEfC7ocLnWuU1rw" name="change aspect" client="_hIFK4FafEfC7ocLnWuU1rw" supplier="_LWAIIFdvEfC7ocLnWuU1rw"/>
@@ -121,6 +105,17 @@
         <packagedElement xmi:type="uml:Usage" xmi:id="_jq888FdzEfCPBPtZlrPchw" name="change aspect" client="_hIFK4FafEfC7ocLnWuU1rw" supplier="_cUj7AFdvEfC7ocLnWuU1rw"/>
         <packagedElement xmi:type="uml:Usage" xmi:id="_q6xZoFdzEfCPBPtZlrPchw" name="change aspect" client="_hIFK4FafEfC7ocLnWuU1rw" supplier="_dsq9cFdvEfC7ocLnWuU1rw"/>
         <packagedElement xmi:type="uml:Usage" xmi:id="_tvuNgFdzEfCPBPtZlrPchw" name="change aspect" client="_hIFK4FafEfC7ocLnWuU1rw" supplier="_fXReEFdvEfC7ocLnWuU1rw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_rRp2UFd4EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_O51-IFd2EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_uC_VgFd4EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_ORaFIFd2EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_xrvk4Fd4EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_Ni3kIFd2EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="__B01MFd4EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_MvDhkFd2EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_FNKWEFd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_L00G4Fd2EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_OpXx0Fd5EfCPBPtZlrPchw" name="read" client="_BwQtEFaXEfC7ocLnWuU1rw" supplier="_LE2pkFd2EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_gRpQEFd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_CPgZgFd2EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_mFgFEFd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_BXXQkFd2EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_oJYBUFd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_45noMFd1EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_rdy_cFd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_3-mKYFd1EfCPBPtZlrPchw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_waos4Fd5EfCPBPtZlrPchw" name="read" client="_ls2WkFafEfC7ocLnWuU1rw" supplier="_1PNL8Fd1EfCPBPtZlrPchw"/>
       </packagedElement>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Bzcj8FaXEfC7ocLnWuU1rw">
@@ -194,14 +189,8 @@
   <Blocks:Block xmi:id="_dcb_kFafEfC7ocLnWuU1rw" base_Class="_dcXuIFafEfC7ocLnWuU1rw"/>
   <Blocks:Block xmi:id="_hIJcUFafEfC7ocLnWuU1rw" base_Class="_hIFK4FafEfC7ocLnWuU1rw"/>
   <Blocks:Block xmi:id="_ls5Z4FafEfC7ocLnWuU1rw" base_Class="_ls2WkFafEfC7ocLnWuU1rw"/>
-  <Blocks:Block xmi:id="_WoeJoFdpEfC7ocLnWuU1rw" base_Class="_WobtYFdpEfC7ocLnWuU1rw"/>
-  <Blocks:Block xmi:id="_jH--UFdpEfC7ocLnWuU1rw" base_Class="_jH6s4FdpEfC7ocLnWuU1rw"/>
-  <Blocks:Block xmi:id="_Z401MFdrEfC7ocLnWuU1rw" base_Class="_Z4v8sFdrEfC7ocLnWuU1rw"/>
-  <Blocks:Block xmi:id="_iJKTsFdrEfC7ocLnWuU1rw" base_Class="_iJGCQFdrEfC7ocLnWuU1rw"/>
   <Blocks:Block xmi:id="_kRAxAFdrEfC7ocLnWuU1rw" base_Class="_kQ8fkFdrEfC7ocLnWuU1rw"/>
   <Blocks:Block xmi:id="_lbvewFdrEfC7ocLnWuU1rw" base_Class="_lbsbcFdrEfC7ocLnWuU1rw"/>
-  <Blocks:Block xmi:id="_mgTTEFdrEfC7ocLnWuU1rw" base_Class="_mgQPwFdrEfC7ocLnWuU1rw"/>
-  <Blocks:Block xmi:id="_ntamcFdrEfC7ocLnWuU1rw" base_Class="_ntYxQFdrEfC7ocLnWuU1rw"/>
   <Blocks:Block xmi:id="_E8aI0FdvEfC7ocLnWuU1rw" base_Class="_E8WecFdvEfC7ocLnWuU1rw"/>
   <Blocks:Block xmi:id="_J6elUFdvEfC7ocLnWuU1rw" base_Class="_J6biAFdvEfC7ocLnWuU1rw"/>
   <Blocks:Block xmi:id="_LWDygFdvEfC7ocLnWuU1rw" base_Class="_LWAIIFdvEfC7ocLnWuU1rw"/>
@@ -227,4 +216,6 @@
   <Blocks:Block xmi:id="_Ni6AYFd2EfCPBPtZlrPchw" base_Class="_Ni3kIFd2EfCPBPtZlrPchw"/>
   <Blocks:Block xmi:id="_ORchYFd2EfCPBPtZlrPchw" base_Class="_ORaFIFd2EfCPBPtZlrPchw"/>
   <Blocks:Block xmi:id="_O53zUFd2EfCPBPtZlrPchw" base_Class="_O51-IFd2EfCPBPtZlrPchw"/>
+  <Blocks:Block xmi:id="_eUD-QFgXEfCoRMFlgbh8KA" base_Class="_eTsx4FgXEfCoRMFlgbh8KA"/>
+  <Blocks:Block xmi:id="_kbX6wFgXEfCoRMFlgbh8KA" base_Class="_kbU3cFgXEfCoRMFlgbh8KA"/>
 </xmi:XMI>
