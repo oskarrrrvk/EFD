@@ -1,0 +1,72 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0" version="28.2.5">
+  <diagram name="Página-1" id="vnPOsrmVS2sYYaljup0t">
+    <mxGraphModel dx="1162" dy="675" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="D4tZR2tNuDfsNciGkZMU-1" target="D4tZR2tNuDfsNciGkZMU-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="D4tZR2tNuDfsNciGkZMU-1" target="D4tZR2tNuDfsNciGkZMU-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-1" value="Enclavamiento&lt;div&gt;ferroviario didáctico&lt;div&gt;(RaspBerry)&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e51400;strokeColor=#B20000;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="505" y="540" width="100" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="D4tZR2tNuDfsNciGkZMU-2" target="D4tZR2tNuDfsNciGkZMU-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="413" y="690" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="390" y="360" width="90" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="D4tZR2tNuDfsNciGkZMU-3" target="D4tZR2tNuDfsNciGkZMU-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" vertex="1" parent="1">
+          <mxGeometry x="510" y="360" width="90" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" vertex="1" parent="1">
+          <mxGeometry x="630" y="360" width="90" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-5" value="Controlador de Agujas&lt;div&gt;(ESP 32)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="405" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-6" value="Sw.&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Str&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="512.5" y="640" width="85" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-8" value="Controlador&lt;div&gt;de Secciones de vía&amp;nbsp;&lt;/div&gt;&lt;div&gt;(ESP 32)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="525" y="375" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-9" value="Controlador&lt;div&gt;de Señales&lt;/div&gt;&lt;div&gt;(ESP 32)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="645" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-15" value="Detectores de&lt;div&gt;posición&lt;/div&gt;&lt;div&gt;(giroscópios)&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="230" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-16" value="Dispositivos de&amp;nbsp;&lt;div&gt;Ocupación&lt;br&gt;(sensores&amp;nbsp;&lt;/div&gt;&lt;div&gt;Inflarrojos)&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="486.25" y="150" width="137.5" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-17" value="Señales&lt;div&gt;(leds)&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="623.75" y="200" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.671;entryY=0.911;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="D4tZR2tNuDfsNciGkZMU-3" target="D4tZR2tNuDfsNciGkZMU-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-20" value="Agujas&lt;div&gt;(servos)&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="200" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.667;exitY=-0.036;exitDx=0;exitDy=0;entryX=0.55;entryY=0.95;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;" edge="1" parent="1" source="D4tZR2tNuDfsNciGkZMU-4" target="D4tZR2tNuDfsNciGkZMU-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.625;entryY=0.892;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="D4tZR2tNuDfsNciGkZMU-2" target="D4tZR2tNuDfsNciGkZMU-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D4tZR2tNuDfsNciGkZMU-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.55;entryY=0.95;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="D4tZR2tNuDfsNciGkZMU-2" target="D4tZR2tNuDfsNciGkZMU-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
