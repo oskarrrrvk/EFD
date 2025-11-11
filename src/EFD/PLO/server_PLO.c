@@ -10,7 +10,7 @@
 #define MAXLINE 1024
 
 char server_ip[16];
-int server_port, server_socket;
+int server_port, server_socket, listener_socket;
 
 struct sockaddr_in server_addr;
 
@@ -34,7 +34,7 @@ int main (int argc, char **argv){
         return 1;
     }
     split_server_info(server_info);
-    server_socket = socket(AF_INET, SOCK_DGRAM, 0);
+    server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket < 0) {
         perror("Socket creation failed");
         return 1;
@@ -43,6 +43,7 @@ int main (int argc, char **argv){
 
     receive_message();
 
+    close(listener_socket);
     close(server_socket);
     return 0;
 
@@ -71,14 +72,22 @@ void config_server()
 {
     printf("Server <IP> : <PORT> %s : %d\n", server_ip, server_port);
     memset(&server_addr, 0, sizeof(server_addr));
+
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(server_port);
     server_addr.sin_addr.s_addr = inet_addr(server_ip);
+
     if (bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
         perror("Bind failed");
         exit(1);
     }
 
+    if(listen(server_socket,3) < 0)
+    {
+        perror("Error on listener socket");
+        close(server_socket);
+        exit(1);
+    }
 }
 
 void receive_message()
@@ -90,21 +99,24 @@ void receive_message()
     }
 
     struct sockaddr_in client_addr;
-    socklen_t client_len = sizeof(client_addr);
+    socklen_t addr_len = sizeof(client_addr);
     int msg_readed;
-   
+    
+    listener_socket = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
+    if ( listener_socket < 0)
+    {
+        printf("listener: %d",listener_socket);
+        perror("Accept failed");
+        close(server_socket);
+        exit(1);
+    }
+    
     printf("Server waiting for messages...\n");
     do {
+
         memset(buffer, 0, MAXLINE);
-        msg_readed = recvfrom(server_socket, buffer, MAXLINE-1, 0,
-                             (struct sockaddr*)&client_addr, &client_len);
-        
-        if (msg_readed < 0) {
-            perror("Error receiving message");
-            break;
-        }
-        
-        printf("Message: %s\n", buffer);       
+        msg_readed = recv(listener_socket, buffer, MAXLINE, 0);        
+        printf("Message: %s\n", buffer);   
     } while (strstr(buffer,"exit") == 0 && msg_readed > 0);
     
     free(buffer);
