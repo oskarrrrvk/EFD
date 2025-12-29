@@ -11,7 +11,7 @@ def read_config_file():
         lines = config_file.readlines()
         global ip
         global port
-        ip,port = lines[0].split(':')
+    ip,port = lines[0].split(':')
 
 def config_client_socket():
     global s
@@ -20,6 +20,7 @@ def config_client_socket():
     while s.connect_ex((ip,int(port))) != 0:
         pass
     print("\nConnected to server")
+
 def client_socket():
     loop = True
     while loop:
@@ -40,5 +41,6 @@ if __name__ == "__main__":
 
     server_thread.start()
     commands_thread.start()
+    
     commands_thread.join()
     server_thread.join()
