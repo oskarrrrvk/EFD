@@ -74,7 +74,54 @@ class Switch:
     
     def get_name(self):
         return self.name
+    
+    def set_switch_state(self,colorR:str, colorL:str, color1:str, color1A:str):
+        self.sw1A.change_color(color1A)
+        self.sw1.change_color(color1)
+        self.sw3R.change_color(colorR)
+        self.sw3RA.change_color(colorR)
+        self.sw3L.change_color(colorL)
+        for sw in self.sw3LA:
+            sw.change_color(colorL)
 
+    def set_normal_direction(self,color:str):
+        self.set_switch_state(color,"yellow","blue",color)
+        self.sw2L.change_color("black")
+        self.sw2R.change_color(color)
+
+    def set_reverse_direction(self,color:str):
+        self.set_switch_state("yellow",color,"blue",color)
+        self.sw2R.change_color("black")
+        self.sw2L.change_color(color)
+
+    def ocupy_swith_in_step_train(self):
+        self.set_switch_state("red","red","blue","red")
+        self.sw2R.change_color("red")
+        self.sw2L.change_color("red")
+
+    def ocupy_switch_unexpectively(self):
+        self.set_switch_state("red","red","white","red")
+        self.sw2R.change_color("red")
+        self.sw2L.change_color("red")
+
+    def reset_state(self):
+        self.set_switch_state("yellow","yellow","white","yellow")
+
+    def reset_normal_direction(self):
+        self.sw2L.change_color("black")
+        self.sw2R.change_color("yellow")
+        self.reset_state()
+    
+    def reset_reverse_direction(self):
+        self.sw2R.change_color("black")
+        self.sw2L.change_color("yellow")
+        self.reset_state()
+
+    def set_id(self,id:int):
+        self.id = id
+
+    def get_id(self):
+        return self.id
 
 class SwitchLeft(Switch):
     def __init__(self,name:str, x0:int, y0:int):

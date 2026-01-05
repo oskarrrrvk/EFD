@@ -10,18 +10,6 @@ class Rail:
     def change_color(self, color:str):
         self.color = color
 
-    def occupy_rail(self):
-        self.change_color( "red")
-    
-    def free_rail(self):
-        self.change_color("yellow")
-    
-    def stablish_itinerary(self):
-        self.change_color("green")
-    
-    def stablish_manoeuvre(self):
-        self.change_color("blue")
-
     def get_name(self):
         return self.name
     
@@ -30,6 +18,12 @@ class Rail:
 
     def get_coords(self):
         return [self.coords0, self.coords1, self.coords2, self.cords3]
+    
+    def set_id(self,id:int):
+        self.id = id
+    
+    def get_id(self):
+        return self.id
 
 class HorizontalRail(Rail):
     def __init__(self, name:str, x0:int, y0:int, x_length:int, color:str="yellow"):

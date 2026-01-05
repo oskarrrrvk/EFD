@@ -1,6 +1,6 @@
 class Torch:
-    def __init__(self,color:str, coordinates:list[tuple[int,int]]):
-        self.color = color
+    def __init__(self, coordinates:list[tuple[int,int]]):
+        self.color = "red"
         self.coordinates = coordinates
 
     def get_color(self):
@@ -9,15 +9,18 @@ class Torch:
     def get_coordinates(self):
         return self.coordinates
 
-    def change_color(self,color:str):
-        self.color = color
+    def set_id(self,id:int):
+        self.id = id
+
+    def get_id(self):
+        return self.id
 
 class Circle_Torch(Torch):
     def __init__(self, center_x:int, center_y:int):
         radious = 10
         coord0 = (center_x-radious,center_y-radious)
         coord1 = (center_x+radious,center_y+radious)
-        super().__init__("red",[coord0, coord1])
+        super().__init__([coord0, coord1])
     
 class Square_Torch(Torch):
     def __init__(self, center_x:int, center_y:int):
@@ -26,7 +29,7 @@ class Square_Torch(Torch):
         coord1 = (center_x+size,center_y-size)
         coord2 = (center_x+size,center_y+size)
         coord3 = (center_x-size,center_y+size)
-        super().__init__("red",[coord0,coord1,coord2,coord3]) 
+        super().__init__([coord0,coord1,coord2,coord3]) 
 
 class Foot_Signal:
     def __init__(self,x0:int, y0:int,direction:int):
@@ -38,12 +41,6 @@ class Foot_Signal:
         self.coord5 = (x0+35*direction,y0-8)
         self.coord6 = (x0+5*direction,y0-8)
         self.coord7 = (x0+5*direction,y0)
-        self.color = "red"
-    
-    def activate_foot_signal(self):
-        self.color = "yellow"
-
-    def deactivate_foot_signal(self):
         self.color = "red"
     
     def get_color(self):
@@ -58,6 +55,12 @@ class Foot_Signal:
                 self.coord5,
                 self.coord6,
                 self.coord7]
+
+    def set_id(self,id:int):
+        self.id = id
+
+    def get_id(self):
+        return self.id
     
 class Signal:
     def __init__(self,name:str, torch: Torch, foot_signal: Foot_Signal):
@@ -76,6 +79,12 @@ class Signal:
     
     def get_torch_signal_color(self):
         return self.torch.get_color()
+
+    def get_id(self):
+        return self.torch.get_id(), self.foot_signal.get_id()
+    def set_id(self,idt:int,idf:int):
+        self.torch.set_id(idt)
+        self.foot_signal.set_id(idf)
 
 class Circle_Signal(Signal):
     def __init__(self, name:str, x0:int, y0:int,direction:int):
