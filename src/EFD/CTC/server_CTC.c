@@ -26,14 +26,17 @@ int main (int argc, char **argv){
         printf("./server_PLO <file_name.conf>\n");
         return 1;
     }
-    char server_info[100];
     printf("Configuration file: %s\n", argv[1]);
+
+    char server_info[100];
     read_config_file(argv[1], server_info);
     if(strlen(server_info) < 2){
         printf("Config file is empty\n");
         return 1;
     }
+
     split_server_info(server_info);
+    
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket < 0) {
         perror("Socket creation failed");
@@ -102,6 +105,8 @@ void receive_message()
     socklen_t addr_len = sizeof(client_addr);
     int msg_readed;
     
+    char* message ="a";
+
     listener_socket = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
     if ( listener_socket < 0)
     {
@@ -112,11 +117,12 @@ void receive_message()
     }
     
     printf("Server waiting for messages...\n");
-    do {
-
+    do 
+    {
         memset(buffer, 0, MAXLINE);
-        msg_readed = recv(listener_socket, buffer, MAXLINE, 0);        
-        printf("Message: %s\n", buffer);   
+        msg_readed = recv(listener_socket, buffer, MAXLINE, 0);   
+        printf("Message: %s\n", buffer);
+        send(listener_socket, message, strlen(message), 0);
     } while (strstr(buffer,"exit") == 0 && msg_readed > 0);
     
     free(buffer);
