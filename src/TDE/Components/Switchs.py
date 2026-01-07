@@ -117,7 +117,7 @@ class Switch:
         self.sw2L.change_color("yellow")
         self.reset_state()
 
-    def set_id(self,id:int):
+    def set_id(self,id:list[int]):
         self.id = id
 
     def get_id(self):

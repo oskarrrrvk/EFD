@@ -42,7 +42,8 @@ class Foot_Signal:
         self.coord6 = (x0+5*direction,y0-8)
         self.coord7 = (x0+5*direction,y0)
         self.color = "red"
-    
+
+
     def get_color(self):
         return self.color
     
@@ -80,11 +81,20 @@ class Signal:
     def get_torch_signal_color(self):
         return self.torch.get_color()
 
+    def get_name(self):
+        return self.name
+
     def get_id(self):
         return self.torch.get_id(), self.foot_signal.get_id()
+    
     def set_id(self,idt:int,idf:int):
         self.torch.set_id(idt)
         self.foot_signal.set_id(idf)
+
+    def change_color(self, torch_color:str, foot_color:str):
+        self.torch.color = torch_color
+        self.foot_signal.color = foot_color
+
 
 class Circle_Signal(Signal):
     def __init__(self, name:str, x0:int, y0:int,direction:int):

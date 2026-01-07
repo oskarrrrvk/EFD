@@ -105,7 +105,7 @@ void receive_message()
     socklen_t addr_len = sizeof(client_addr);
     int msg_readed;
     
-    char* message ="a";
+    char* E1S12 ="CVE'1:yellow;CVE1:green;1:[Normal,green];CV1:green;CV2:yellow;2:[Reverse,yellow];CVE2:yellow;CVE'2:yellow;E'1:[yellow,yellow];E1:[green,green];R1:[white,white];S1/1:[red,red];S2/1:[red,red];S1/2:[red,red];S2/2:[red,red];E2:[red,red];E'2:[red,red]";
 
     listener_socket = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
     if ( listener_socket < 0)
@@ -122,7 +122,7 @@ void receive_message()
         memset(buffer, 0, MAXLINE);
         msg_readed = recv(listener_socket, buffer, MAXLINE, 0);   
         printf("Message: %s\n", buffer);
-        send(listener_socket, message, strlen(message), 0);
+        send(listener_socket, E1S12, strlen(E1S12), 0);
     } while (strstr(buffer,"exit") == 0 && msg_readed > 0);
     
     free(buffer);

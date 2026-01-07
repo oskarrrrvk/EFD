@@ -32,7 +32,6 @@ def command_sender_socket():
             command.sendall(shell.movement.encode('utf-8'))
             time.sleep(0.5)
             synoptic.state = command.recv(1024).decode('utf-8')
-            print(f"Messeage: {synoptic.state}")
             shell.movement = ""
         time.sleep(0.1)
     command.close()
