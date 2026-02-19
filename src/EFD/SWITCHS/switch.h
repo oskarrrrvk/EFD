@@ -20,7 +20,7 @@ int  config_switch_gpios();
 void terminate_gpio_connection();
 void set_position(int switch_index, int position);
 void read_positions(int real_states[]);
-void check_real_positions(int real_states[]);
+void check_real_states(int real_states[]);
 void get_positions();
 
 #endif

@@ -1,7 +1,8 @@
 #include "switch.h"
 
 const int SWITCH_IN[] = {6,26};
-const int SWItCH_OUT[] = {5,13};
+const int SWITCH_OUT[] = {5,13};
+
 int states[] = {0,0};
 
 int config_switch_gpios()
@@ -23,11 +24,12 @@ void terminate_gpio_connection()
 
 void set_position(int switch_index, int position)
 {
-    if(0 < switch_index && switch_index > 1 && position != STRAIGHT && position != REVERSE)
+    if(0 < switch_index && switch_index > 1 || position != STRAIGHT && position != REVERSE)
     {
         printf("ERROR: invalid parameters");
 	return;
     }
+    states[switch_index] = position;
     gpioWrite(SWITCH_OUT[switch_index],position);
 }
 
@@ -43,10 +45,10 @@ void check_real_states(int real_states[])
         states[i] = real_states[i] == states[i] ? states[i] : ERROR; 
 }
 
-void get_position()
+void get_positions()
 {
     int desire_positions [NUMBER_SWITCHS];
     
     read_position(desire_positions);
-    check_real_positions(desire_positions);
+    check_real_states(desire_positions);
 }
