@@ -10,10 +10,10 @@
 #include "nvs_flash.h"
 #include "esp_netif.h"
 
-#define SSID "MOVISTAR_F2BF"
-#define PASSWORD "9AZj2aA86T42ZQ89bRGe"
+#define SSID ""
+#define PASSWORD ""
 
-#define IP "192.168.1.33"
+#define IP ""
 #define PORT 34543
 
 #define WIFI_CONNECTED_BIT BIT0
