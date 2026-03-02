@@ -15,6 +15,5 @@ extern int rail_section_states[RAIL_SECTION_NUMBER];
 
 void config_rail_sections(void);
 void read_rail_section_states(void);
-void send_rail_section_states(void);
 
 #endif

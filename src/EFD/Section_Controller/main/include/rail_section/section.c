@@ -23,7 +23,7 @@ void read_rail_section_states()
 {
     for(int i=0; i < RAIL_SECTION_NUMBER; i++)
     {
-        rail_section_states[i] = gpio_get_level(GPIO_RAIL_SECTIONS[i]) == 0 ? OCCUPY : FREE;
+        rail_section_states[i] = gpio_get_level(GPIO_RAIL_SECTIONS[i]);
         vTaskDelay(pdMS_TO_TICKS(100));
     }
 
