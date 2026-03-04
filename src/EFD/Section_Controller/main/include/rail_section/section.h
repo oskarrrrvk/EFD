@@ -10,6 +10,7 @@
 #define OCCUPY 1
 #define FREE   0
 
+extern const char *NAME_RAIL_SECTIONS [RAIL_SECTION_NUMBER];
 extern const int GPIO_RAIL_SECTIONS [RAIL_SECTION_NUMBER];
 extern int rail_section_states[RAIL_SECTION_NUMBER];
 

@@ -10,10 +10,10 @@
 #include "nvs_flash.h"
 #include "esp_netif.h"
 
-#define SSID ""
-#define PASSWORD ""
+#define SSID "MOVISTAR_F2BF"
+#define PASSWORD "9AZj2aA86T42ZQ89bRGe"
 
-#define IP ""
+#define IP "192.168.1.33"
 #define PORT 34543
 
 #define WIFI_CONNECTED_BIT BIT0
@@ -23,7 +23,7 @@
 
 void init_sta(void);
 int connect_to_server(char *ip, int port);
-void send_data(int sockfd, int states[], int len);
+void send_data(int sockfd, const char *rail_names[], int states[], int len);
 int receive_data(int sockfd, char *message[]);
 
 #endif

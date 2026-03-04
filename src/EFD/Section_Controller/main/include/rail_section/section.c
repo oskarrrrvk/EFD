@@ -1,5 +1,10 @@
 #include "section.h"
 
+const char *NAME_RAIL_SECTIONS [RAIL_SECTION_NUMBER] = 
+    {
+        "CVE'1", "CVE1", "CVA1", "CV1", "CV2", "CVA2", "CVE2", "CVE'2"
+    };
+
 const int GPIO_RAIL_SECTIONS [RAIL_SECTION_NUMBER] = 
     {
         GPIO_NUM_12, GPIO_NUM_13, GPIO_NUM_14, GPIO_NUM_25, GPIO_NUM_26, GPIO_NUM_27, GPIO_NUM_32, GPIO_NUM_33

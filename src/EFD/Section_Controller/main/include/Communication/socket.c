@@ -80,13 +80,13 @@ int connect_to_server(char *ip, int port) {
     return sockfd;
 }
 
-void send_data(int sockfd, int states[], int len) {
+void send_data(int sockfd, const char *rail_names[], int states[], int len) {
     char *message=malloc(BUFFER_SIZE);
     int offset = 0;
     for(int i=0; i < len-1; i++) {
-        offset += snprintf(message+offset, BUFFER_SIZE-offset, "%d;", states[i]);
+        offset += snprintf(message+offset, BUFFER_SIZE-offset, "%s:%d;", rail_names[i], states[i]);
     }
-    snprintf(message+offset, BUFFER_SIZE-offset, "%d;", states[len-1]);
+    snprintf(message+offset, BUFFER_SIZE-offset, "%s:%d\n", rail_names[len-1], states[len-1]);
     send(sockfd, message, strlen(message), 0);
     free(message);
 }
