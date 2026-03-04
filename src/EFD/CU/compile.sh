@@ -1,2 +1,2 @@
-gcc -c -fdump-ada-spec my_header.h
-gcc -c -gnatceg spec.ads
+gcc -c -fdump-ada-spec -C ./Communication/server_CTC.h
+mv *.ads ./includes
