@@ -1,36 +1,16 @@
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
-#include<unistd.h>
-#include<arpa/inet.h>
-#include<sys/socket.h>
-#include<netinet/in.h>
-#include<netdb.h> 
-
-#define MAXLINE 1024
-
+#include "server_CTC.h"
+ 
 char server_ip[16];
 int server_port, server_socket, listener_socket;
 
 struct sockaddr_in server_addr;
 
-void read_config_file(const char* filename, char* server_info);
-void split_server_info(char* server_info);
-
-void config_server(void);
-
-void receive_message(void);
-
-int main (int argc, char **argv){
-    if (argc < 2){
-        printf("./server_PLO <file_name.conf>\n");
-        return 1;
-    }
-    printf("Configuration file: %s\n", argv[1]);
-
+void execute_CTC(char *config_filename)
+{
     char server_info[100];
-    read_config_file(argv[1], server_info);
-    if(strlen(server_info) < 2){
+    read_config_file(config_filename, server_info);
+    if(strlen(server_info) < 2)
+    {
         printf("Config file is empty\n");
         return 1;
     }
@@ -38,7 +18,8 @@ int main (int argc, char **argv){
     split_server_info(server_info);
     
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (server_socket < 0) {
+    if (server_socket < 0) 
+    {
         perror("Socket creation failed");
         return 1;
     }
@@ -47,9 +28,7 @@ int main (int argc, char **argv){
     receive_message();
 
     close(listener_socket);
-    close(server_socket);
-    return 0;
-
+    close(server_socket);    
 }
 
 void read_config_file(const char* filename, char* server_info) 
