@@ -4,7 +4,7 @@ package EFD is
 
     type Signal is (RED, GREEN, YELLOW, WHITE, GREEN_YELLOW, RED_WHITE, GREEN_WHITE);
     type Rail is (OCCUPIED, FREE);
-    type Switch is (STRAIGHT, REVERS);
+    type Switch is (STRAIGHT, REVERS, ERROR);
 
     type Array_Signals is array(1..10) of Signal;
     type Array_Switchs is array(1..2)  of Switch;
@@ -15,25 +15,29 @@ package EFD is
         procedure move_switch_position(index: in Integer);
         procedure set_signal_states(states: Array_Signals);
         procedure set_rail_states(states: Array_Rails);
-        function get_switch_states return Switchs;
-        function get_rail_states return Rails;
-        function get_signal_states return Signals;
+        function get_switch_states return Array_switchs;
+        function get_rail_states return Array_rails;
+        function get_signal_states return Array_signals;
         procedure set_route(route:String);
+	function check_available_route return Boolean;
         procedure make_route;
 	procedure remove_route(route);
     private 
         signals: Array_Signals;
         rails: Array_Rails;
         switchs: Array_Switchs;
-        routes: array (Integer <>) of String;
+        routes: array (1..2) of String;
     end Station;
     
     protected Protections is
     pragma Priority(System.Priority'First + 5);
-        procedure check_scape_material(cve2:in Integer, cve_2:in Integuer);
+        procedure check_scape_material(desire_cve1:in Rail, desire_cv_e1:in Rail, real_cve1:in Rail, real_cv_e1:in Rail, desire_cve2:in Rail, desire_cv_e2:in Rail, real_cve2:in Rail, real_cv_e2:in Rail);
+	procedure check_switch_position(desire: in Switch, real: in Switch);
         function get_scape_material return Boolean;
+	function get_switch_error return Boolean;
     private
-        scape_material: Boolean;
+        scape_material: array(1..2) of Boolean;
+	switch_error:array(1..Array_switchs'Length) Boolean;
     end Protections;
       
     procedure idle;
