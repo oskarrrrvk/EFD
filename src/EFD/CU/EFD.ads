@@ -3,7 +3,7 @@ with System; use System;
 package EFD is
 
     type Signal is (RED, GREEN, YELLOW, WHITE, GREEN_YELLOW, RED_WHITE, GREEN_WHITE);
-    type Rail is (OCCUPIED, FREE);
+    type Rail is (OCCUPIED, FREE, ITINERARY, MANOUVER, EXCEED, PROTECT);
     type Switch is (STRAIGHT, REVERS, ERROR);
 
     type Array_Signals is array(1..10) of Signal;
@@ -31,9 +31,9 @@ package EFD is
     
     protected Protections is
     pragma Priority(System.Priority'First + 5);
-        procedure check_scape_material(desire_cve1:in Rail, desire_cv_e1:in Rail, real_cve1:in Rail, real_cv_e1:in Rail, desire_cve2:in Rail, desire_cv_e2:in Rail, real_cve2:in Rail, real_cv_e2:in Rail);
+        procedure check_scape_material(desire_cvs:Array_Rail, real_cvs:Array_Rail, blockade: Integer);
 	procedure check_switch_position(desire: in Switch, real: in Switch);
-        function get_scape_material return Boolean;
+	function get_scape_material return Boolean;
 	function get_switch_error return Boolean;
     private
         scape_material: array(1..2) of Boolean;

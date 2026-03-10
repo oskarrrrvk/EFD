@@ -71,7 +71,21 @@ package body EFD is
 
     protected Protections is
     begin
-
+        procedure check_scape_material(desire_cvs:Array_Rails, real_cvs:Array_Rails, blockade: Integer) is
+	begin 
+            if desire_cvs'Length /= real_cvs'Length
+	    then
+	        return;
+	    end if;
+	    for i in 1..desire_cvs'Length loop
+	        if desire_cvs(i) = FREE and real_cvs(i) = OCCUPIED
+		then
+		    scape_material(blockade) = True;
+		else 
+		    scape_material(blockade) = False;
+		end if;
+	    end loop;
+	end check_scape_material;	
     end Protections; 
 end EFD;
 
