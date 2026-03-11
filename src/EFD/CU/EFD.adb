@@ -67,10 +67,32 @@ package body EFD is
 		i ++;
 	    end loop;
 	end set_route;
+        
+	function check_available_route(cvs: array(Integer <>) of Rail) return Boolean is
+	    available: Boolean := True;
+	begin
+	    for i in 1..cvs'Length loop
+	        if cvs(i) = OCCUPIED then
+		    available = False;
+		end if;
+	    end loop;
+	    return available;
+	end check_available_route;
+        
+	procedure make_route is
+	end make_route;
+        procedure remove_route(route: String) is
+            for i in 1..routes'Length loop
+	        if routes(i) = route then
+		    routes(i) = "":
+		end if;
+	    end loop;	    
+	end remove_route;	
     end Station;
 
     protected Protections is
     begin
+
         procedure check_scape_material(desire_cvs:Array_Rails, real_cvs:Array_Rails, blockade: Integer) is
 	begin 
             if desire_cvs'Length /= real_cvs'Length
@@ -85,7 +107,26 @@ package body EFD is
 		    scape_material(blockade) = False;
 		end if;
 	    end loop;
-	end check_scape_material;	
+	end check_scape_material;
+
+        procedure check_switch_position(desire_pos:in Switch, real_pos:in Switch, switch_index:in Integer) is
+	begin
+	    if desire_pos /= real_pos then
+		switch_error(switch_index) := True;
+	    else 
+		    switch_error(switch_index) := False;
+	    end if;
+	end check_switch_position;	
+
+	function get_scape_material is
+	begin
+	    return scape_material;
+	end get_scape_material;
+	
+	function get_switch_error is
+	    return switch_error;
+	end get_switch_error;
+   
     end Protections; 
 end EFD;
 

@@ -4,7 +4,7 @@ package EFD is
 
     type Signal is (RED, GREEN, YELLOW, WHITE, GREEN_YELLOW, RED_WHITE, GREEN_WHITE);
     type Rail is (OCCUPIED, FREE, ITINERARY, MANOUVER, EXCEED, PROTECT);
-    type Switch is (STRAIGHT, REVERS, ERROR);
+    type Switch is (STRAIGHT, REVERS);
 
     type Array_Signals is array(1..10) of Signal;
     type Array_Switchs is array(1..2)  of Switch;
@@ -20,7 +20,7 @@ package EFD is
         function get_signal_states return Array_signals;
         procedure set_route(route:String);
 	function check_available_route return Boolean;
-        procedure make_route;
+        procedure make_route(cvs: out array(Integer <>) of Rail);
 	procedure remove_route(route);
     private 
         signals: Array_Signals;
@@ -32,12 +32,12 @@ package EFD is
     protected Protections is
     pragma Priority(System.Priority'First + 5);
         procedure check_scape_material(desire_cvs:Array_Rail, real_cvs:Array_Rail, blockade: Integer);
-	procedure check_switch_position(desire: in Switch, real: in Switch);
-	function get_scape_material return Boolean;
-	function get_switch_error return Boolean;
+	procedure check_switch_position(desire_pos: in Switch, real_pos: in Switch, switch_index: Integer);
+	function get_scape_material return array(1..2) of Boolean;
+	function get_switch_error return array(1..Array_switchs'Length) of Boolean;
     private
         scape_material: array(1..2) of Boolean;
-	switch_error:array(1..Array_switchs'Length) Boolean;
+	switch_error:array(1..Array_switchs'Length) of Boolean;
     end Protections;
       
     procedure idle;
