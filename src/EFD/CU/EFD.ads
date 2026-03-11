@@ -9,7 +9,13 @@ package EFD is
     type Array_Signals is array(1..10) of Signal;
     type Array_Switchs is array(1..2)  of Switch;
     type Array_Rails   is array(1..8)  of Rail;
-    
+   
+    type Movement is record
+        route_name: String;
+	cvs_states: Array_Rails;
+	Signals_states: Array_Signals:
+    end record;
+
     protected Station is
     pragma Priority(System.Priority'First + 5);
         procedure move_switch_position(index: in Integer);
