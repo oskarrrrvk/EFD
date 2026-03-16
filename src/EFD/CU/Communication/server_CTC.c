@@ -1,63 +1,26 @@
 #include "server_CTC.h"
  
-char server_ip[16];
-int server_port, server_socket, listener_socket;
+int server_socket, listener_socket;
 
 struct sockaddr_in server_addr;
+struct sockaddr_in client_addr;
 
-void execute_CTC(char *config_filename)
+void config_server()
 {
-    char server_info[100];
-    read_config_file(config_filename, server_info);
-    if(strlen(server_info) < 2)
-    {
-        printf("Config file is empty\n");
-        return 1;
-    }
 
-    split_server_info(server_info);
-    
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket < 0) 
     {
         perror("Socket creation failed");
-        return 1;
-    }
-    config_server();
-
-    receive_message();
-
-    close(listener_socket);
-    close(server_socket);    
-}
-
-void read_config_file(const char* filename, char* server_info) 
-{
-    FILE* df = fopen(filename, "r");
-    if (df == NULL) {
-        printf("Could not open config file %s\n", filename);
         exit(1);
     }
-    fscanf(df, "%s", server_info);
-    fclose(df);
-}
 
-void split_server_info(char* server_info)
-{
-    char *token = strtok(server_info,":");
-    strcpy(server_ip, token);
-    token = strtok(NULL, ":");
-    server_port = atoi(token);
-}
-
-void config_server()
-{
-    printf("Server <IP> : <PORT> %s : %d\n", server_ip, server_port);
+    printf("Server <IP> : <PORT> %s : %d\n", SERVER_IP, SERVER_PORT);
     memset(&server_addr, 0, sizeof(server_addr));
 
     server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(server_port);
-    server_addr.sin_addr.s_addr = inet_addr(server_ip);
+    server_addr.sin_port = htons(SERVER_PORT);
+    server_addr.sin_addr.s_addr = inet_addr(SERVER_IP);
 
     if (bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
         perror("Bind failed");
@@ -72,37 +35,46 @@ void config_server()
     }
 }
 
-void receive_message()
+
+void accept_connection(void)
+{
+    socklen_t addr_len = sizeof(client_addr);
+    listener_socket = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
+    if ( listener_socket < 0)
+    {
+        perror("Accept failed");
+        close(server_socket);
+        exit(1);
+    }
+
+}
+
+void receive_message(char *message)
 {
     char *buffer = (char*) malloc(MAXLINE);
     if (buffer == NULL) {
         perror("Failed to allocate message buffer");
         exit(1);
     }
-
-    struct sockaddr_in client_addr;
-    socklen_t addr_len = sizeof(client_addr);
-    int msg_readed;
     
-    char* E1S12 ="CVE'1:yellow;CVE1:green;1:[Normal,green];CV1:green;CV2:yellow;2:[Reverse,yellow];CVE2:yellow;CVE'2:yellow;E'1:[yellow,yellow];E1:[green,green];R1:[white,white];S1/1:[red,red];S2/1:[red,red];S1/2:[red,red];S2/2:[red,red];E2:[red,red];E'2:[red,red]";
-
-    listener_socket = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
-    if ( listener_socket < 0)
+    memset(buffer, 0, MAXLINE);
+    int bytes = recv(listener_socket, buffer, MAXLINE, 0);   
+    if(bytes >= 0)
     {
-        printf("listener: %d",listener_socket);
-        perror("Accept failed");
-        close(server_socket);
-        exit(1);
+        buffer[bytes] = '\0';
+        strcpy(message,buffer);
+        free(buffer);
     }
     
-    printf("Server waiting for messages...\n");
-    do 
-    {
-        memset(buffer, 0, MAXLINE);
-        msg_readed = recv(listener_socket, buffer, MAXLINE, 0);   
-        printf("Message: %s\n", buffer);
-        send(listener_socket, E1S12, strlen(E1S12), 0);
-    } while (strstr(buffer,"exit") == 0 && msg_readed > 0);
-    
-    free(buffer);
+}
+
+void send_message(char *message)
+{
+    send(listener_socket, message, strlen(message), 0);
+}
+
+void close_connection(void)
+{
+    if (listener_socket > 0)
+        close(listener_socket);
 }

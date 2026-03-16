@@ -12,18 +12,17 @@
 
 #define MAXLINE 1024
 
-extern char server_ip[16];
-extern int server_port, server_socket, listener_socket;
+#define SERVER_IP ""
+#define SERVER_PORT 50345
+extern int server_socket, listener_socket;
 
 extern struct sockaddr_in server_addr;
-
-void execute_CTC(char *config_filename);
-
-void read_config_file(const char* filename, char* server_info);
-void split_server_info(char* server_info);
+extern struct sockaddr_in client_addr;
 
 void config_server(void);
-
+void accept_connection(void);
 void receive_message(void);
+void send_message(void);
+void close_connection(void);
 
 #endif

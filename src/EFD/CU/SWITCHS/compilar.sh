@@ -1,1 +1,1 @@
-gcc test.c switch.c -o test.out -lpigpio
+gcc -c -fdump-ada-spec -C ./switch.h 
