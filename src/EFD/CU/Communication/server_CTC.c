@@ -58,6 +58,10 @@ void receive_message(char *message)
     }
     
     memset(buffer, 0, MAXLINE);
+
+    int flag = fcntl(listener_socket, F_GETFL, 0);
+    fcntl(listener_socket, F_SETFL, flags | O_NONBLOCK);
+
     int bytes = recv(listener_socket, buffer, MAXLINE, 0);   
     if(bytes >= 0)
     {
