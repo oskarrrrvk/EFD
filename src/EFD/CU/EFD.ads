@@ -1,3 +1,5 @@
+with Kernel.Serial_Output; use Kernel.Serial_Output;
+with Ada.Real_Time; use Ada.Real_Time;
 with System; use System;
 
 package EFD is
@@ -9,7 +11,8 @@ package EFD is
    type Array_Signals is array(1..10) of Signal;
    type Array_Switchs is array(1..2)  of Switch;
    type Array_Rails   is array(1..8)  of Rail;
-   
+   type Array_Routes  is array(1..2)  of String;
+
    type Movement is record
       route_name: String(1..20);
 	   cvs_states: Array_Rails;
@@ -21,27 +24,31 @@ package EFD is
 
    protected Station is
    pragma Priority(System.Priority'First + 5);
-      procedure move_switch_position(index: Integer; position: Switch);
-      procedure set_signal_states(states: Array_Signals);
-      procedure set_rail_states(states: Array_Rails);
+      procedure move_switch_position(index: in Integer; position: in Switch);
+      procedure set_signal_states(states: in Array_Signals);
+      procedure set_rail_states(states: in Array_Rails);
       function get_switch_states return Array_Switchs;
       function get_rail_states return Array_Rails;
       function get_signal_states return Array_Signals;
       function get_switchs_movement (route:String) return Array_Switchs;
       function get_rails_movement (route: String) return Array_Rails;
       function get_signals_movement (route: String) return Array_Signals;
-      procedure set_marked_route(route: String);
-      procedure set_supervised_route(route: String);
+      procedure set_route(rt: in String; routes: in out Array_routes )
+      procedure set_marked_route(route: in String);
+      procedure set_supervised_route(route: in String);
+      function get_marked_routes return Array_Routes;
+      function get_supervised_routes return Array_Routes;
       function check_available_route (route: String) return Boolean; 
-      procedure make_route(route: String);
-      procedure remove_route(main_signal_name: String);
+      procedure make_route(route: in String);
+      procedure remove_supervised_route(main_signal_name: in String, routes: in out Array_routes);
+      procedure remove_marked_route(main_signal_name: in String);
       procedure monitorise_movements;
       private 
          signals: Array_Signals:=(YELLOW,RED,RED,RED,RED,RED,RED,RED,RED,YELLOW);
          rails: Array_Rails:=(FREE,FREE,FREE,FREE,FREE,FREE,FREE,FREE);
          switchs: Array_Switchs:=(STRAIGHT,STRAIGHT);
-         marked_routes: array (1..2) of String := ("","");
-         supervised_routes: array (1..2) of String := ("","");
+         marked_routes: Array_Routes := ("","");
+         supervised_routes: Array_Routes := ("","");
          movements: Movement_List := (
             ("I E1 S1/2", 
                (ITINERARY,ITINERARY,ITINERARY,ITINERARY,PROTECT,FREE,FREE,FREE),
@@ -140,9 +147,11 @@ package EFD is
    procedure idle;
    
    task Route is
+      -- pragma Priority(System.Priority'First + 1);
    end Route;
 
    task Risks is
+      -- pragma Priority(System.Priority'First + 1);
    end Risks;
 
    task Dispatcher is 

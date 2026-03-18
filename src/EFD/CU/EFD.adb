@@ -19,17 +19,17 @@ package body EFD is
    ---------------------------
 
    protected body Station is
-      procedure move_switch_position(index: Integer; position: Switch) is
+      procedure move_switch_position(index: in Integer; position: in Switch) is
       begin
          switchs(index) := position;
       end move_switch_position;
 
-      procedure set_signal_states(states: Array_Signals) is
+      procedure set_signal_states(states: in Array_Signals) is
       begin
          signals := states;
       end set_signal_states;
 
-      procedure set_rail_states(states: Array_Rails) is
+      procedure set_rail_states(states: in Array_Rails) is
       begin
          rails := states;
       end set_rail_states;
@@ -82,31 +82,37 @@ package body EFD is
          return movement_signals;
       end get_signals_movement;
 
-      procedure set_marked_route(rt: String) is
+      procedure set_route(rt: in String; routes: in out Array_routes ) is  
          i: Integer := 1;
          saved : Boolean := False;
       begin
-         while i <= marked_routes'Length and then not saved loop
-            if marked_routes(i) = "" then
-               marked_routes(i) := rt;
+         while i <= routes'Length and then not saved loop
+            if routes(i) = "" then
+               routes(i) := rt;
                saved := True;
             end if;
             i := i + 1;
          end loop;
+      end set_route;
+      procedure set_marked_route(rt: String) is
+      begin
+         set_route(rt,marked_routes);
       end set_marked_route;
 
       procedure set_supervised_route(rt: String) is
-         i: Integer := 1;
-         saved : Boolean := False;
       begin
-         while i <= marked_routes'Length and then not saved loop
-            if supervised_routes(i) = "" then
-               supervised_routes(i) := rt;
-               saved := True;
-            end if;
-            i := i + 1;
-         end loop;
+         set_route(rt,supervised_routes);
       end set_supervised_route;
+
+      function get_marked_routes return Array_Routes is
+      begin 
+         return marked_routes;
+      end get_marked_routes;
+
+      function get_supervised_routes return Array_Routes is
+      begin
+         return supervised_routes;
+      end get_supervised_routes;
 
       function check_available_route (route: String) return Boolean is
          i: Integer;
@@ -128,17 +134,17 @@ package body EFD is
       begin
          for i in 1..movements'Length loop
             if movements(i).route_name = route then
-               for j in 1..rails_used'Length loop
+               for j in 1..movements(i).cvs_states'Length loop
                   if movements(i).cvs_states(j) /= FREE then
                      rails_used(j) := movements(i).cvs_states(j);
                      end if;
                end loop;
-               for j in 1..signals_used'Length loop
+               for j in 1..movements(i).Signals_states'Length loop
                   if movements(i).Signals_states(j) /= RED then
                      signals_used(j) := movements(i).Signals_states(j);
                   end if;
                end loop;
-               for j in 1..switchs_used'Length loop
+               for j in 1..movements(i).switchs_pos'Length loop
                   if movements(i).switchs_pos(j) /= UNUSED then
                      move_switch_position (j,  movements(i).switchs_pos(j));
                   end if;
@@ -150,10 +156,10 @@ package body EFD is
          set_supervised_route (route);
       end make_route;
 
-      procedure remove_route(main_signal_name: String) is
-      cvs_movement: Array_Rails;
-      signals_movement: Array_Signals;
-      switchs_movement: Array_Switchs;
+      procedure remove_supervised_route(main_signal_name: in String) is
+         cvs_movement: Array_Rails;
+         signals_movement: Array_Signals;
+         switchs_movement: Array_Switchs;
       begin
          for i in 1..supervised_routes'Length loop
             if main_signal_name in supervised_routes(i) then
@@ -179,7 +185,16 @@ package body EFD is
             end if;
             switchs(i) := STRAIGHT;
          end loop;
-      end remove_route;
+      end remove_supervised_route;
+
+      procedure remove_marked_route(main_signal_name: in String) is
+      begin
+         for i in 1..marked_routes'Length loop
+            if main_signal_name in marked_routes(i) then
+               marked_routes(i) := "";
+            end if;
+         end loop;
+      end removed_marked_route;
 
       procedure monitorise_movements is
          movement_tracks: Array_Rails;
@@ -192,7 +207,7 @@ package body EFD is
    protected body Protections is
    begin
 
-      procedure check_scape_material(desire_cvs: Array_Rails; real_cvs: Array_Rails) is
+      procedure check_scape_material(desire_cvs: in Array_Rails; real_cvs: in Array_Rails) is
          i: Integer;
       begin
          if desire_cvs'Length /= real_cvs'Length then
@@ -231,15 +246,25 @@ package body EFD is
    end Protections; 
 
 
-   --  task body Route is 
-   --  end Route;
+   task body Route is
+      next_delay: Time;
+      m_routes: Array_Routes;
+   begin  
+      loop
+         next_delay: Clock + milliseconds(500);
+         m_routes = get_marked_routes;
+         for i in 1..m_routes'Length loop
+            if m_routes(i) /="" then
+               make_route(m_routes(i));
+               remove_marked_route(m_routes(i));
+            end if; 
+         end loop;
+         monitorise_movements;
+      end loop;
+   end Route;
 
    task body Risks is
       next_delay: Time;
-      real_rail_position: Array_Rails;
-      desired_rail_position: Array_Rails;
-      real_switch_position: Array_Switchs; 
-      desired_switch_position: Array_Switchs; 
    begin
       loop
          next_delay := Clock + milliseconds(300)
@@ -271,12 +296,13 @@ package body EFD is
          if Station.check_available_route(command) and error = False then
             Station.set_set_marked_route(command);
          end if;
-         error = False;
          send_message(message);
+         error = False;
          delay until next_delay;
       end loop;
       close_connection
    end Dispatcher;
+
 end EFD;
 
 --  char* E1S12 ="CVE'1:yellow;CVE1:green;1:[Normal,green];CV1:green;CV2:yellow;2:[Reverse,yellow];CVE2:yellow;CVE'2:yellow;E'1:[yellow,yellow];E1:[green,green];R1:[white,white];S1/1:[red,red];S2/1:[red,red];S1/2:[red,red];S2/2:[red,red];E2:[red,red];E'2:[red,red]";
