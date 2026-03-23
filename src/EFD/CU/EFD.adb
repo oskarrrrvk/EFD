@@ -1,3 +1,4 @@
+with EFD;
 with System; use System;
 with Ada.Real_Time; use Ada.Real_Time;
 
@@ -22,11 +23,13 @@ package body EFD is
       procedure move_switch_position(index: in Integer; position: in Switch) is
       begin
          switchs(index) := position;
+         -- move switch (hardware)
       end move_switch_position;
 
       procedure set_signal_states(states: in Array_Signals) is
       begin
          signals := states;
+         -- send the signal state to controller
       end set_signal_states;
 
       procedure set_rail_states(states: in Array_Rails) is
@@ -94,6 +97,7 @@ package body EFD is
             i := i + 1;
          end loop;
       end set_route;
+
       procedure set_marked_route(rt: String) is
       begin
          set_route(rt,marked_routes);
@@ -197,31 +201,34 @@ package body EFD is
       end removed_marked_route;
 
       procedure monitorise_movements is
-         movement_tracks: Array_Rails;
-         movement_signals: Array_Signals;
+         real_rails: Array_Rails;
       begin
-         null;
+         -- read rails
+         for i in 1..real_rails'Length loop
+            if real_rails(i) = OCCUPIED then
+               rails(i) := OCCUPIED;
+            elsif real_rails(i) = FREE and rails(i) = OCCUPIED then
+               rails(i) := PROTECT;
+            end if;
+         end loop;
       end monitorise_movements; 
    end Station;
 
    protected body Protections is
    begin
-
-      procedure check_scape_material(desire_cvs: in Array_Rails; real_cvs: in Array_Rails) is
-         i: Integer;
+      procedure check_scape_material(desire_cvs: in array(1..2); real_cvs: in array (1..2), scape_material_index: in Interger) is
+         count: Integer := 0;
       begin
-         if desire_cvs'Length /= real_cvs'Length then
-            return;
-         end if;
-         for i in 1..scape_material'Length loop
-            for j in 1..desire_cvs'Length loop
-               if desire_cvs(j) = FREE and then real_cvs(j) = OCCUPIED then
-                  scape_material(i) := True;
-               else
-                  scape_material(i) := False;
-               end if;
-            end loop;
+         for i in 1..2 loop
+            if desire_cvs(i) = FREE and real_cvs(i) = OCCUPIED then
+               scape_material(scape_material_index) = True;
+            else
+               count ++;
+            end if;
          end loop;
+         if count = 2 then
+            scape_material(scape_material_index) = False;
+         end if;
       end check_scape_material;
 
       procedure check_switch_position(desire_pos:in Switch, real_pos:in Switch, switch_index:in Integer) is
