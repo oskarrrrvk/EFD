@@ -14,17 +14,13 @@
 
 #define MAXLINE 1024
 
-#define SERVER_IP ""
-#define SERVER_PORT 50345
-extern int server_socket, listener_socket;
-
 extern struct sockaddr_in server_addr;
 extern struct sockaddr_in client_addr;
 
-void config_server(void);
-void accept_connection(void);
-void receive_message(char *message);
-void send_message(char *message);
-void close_connection(void);
+int config_server(void);
+int accept_connection(int server_socket);
+void receive_message(char *message, int listener_socket);
+void send_message(char *message, int listener_socket);
+void close_connection(int listener_socket);
 
 #endif

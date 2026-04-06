@@ -1,1 +1,1 @@
-gcc -c -fdump-ada-spec -C ./server_CTC.h 
+gcc -c -fdump-ada-spec -C ./server.h 

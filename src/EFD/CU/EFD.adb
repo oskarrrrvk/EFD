@@ -1,6 +1,6 @@
-with EFD;
 with System; use System;
 with Ada.Real_Time; use Ada.Real_Time;
+with EFD.include.server_h;use EFD.include.server_h;
 
 package body EFD is
 
@@ -23,13 +23,18 @@ package body EFD is
       procedure move_switch_position(index: in Integer; position: in Switch) is
       begin
          switchs(index) := position;
-         -- move switch (hardware)
+         set_position(index, position);
       end move_switch_position;
 
       procedure set_signal_states(states: in Array_Signals) is
+         message: String := "";
       begin
          signals := states;
-         -- send the signal state to controller
+         for i in 1..signals'Length -1 loop
+            message := message & Signal'Image(signals(i)) & ";";
+         end loop;
+         message := message & Signal'Image(signals(signals'Length));
+         send_message(message);
       end set_signal_states;
 
       procedure set_rail_states(states: in Array_Rails) is
@@ -85,7 +90,7 @@ package body EFD is
          return movement_signals;
       end get_signals_movement;
 
-      procedure set_route(rt: in String; routes: in out Array_routes ) is  
+      procedure set_route(rt: in String; routes: in out Array_Routes ) is  
          i: Integer := 1;
          saved : Boolean := False;
       begin
@@ -167,9 +172,9 @@ package body EFD is
       begin
          for i in 1..supervised_routes'Length loop
             if main_signal_name in supervised_routes(i) then
-               cvs := get_rails_movement(supervised_routes(i));
-               signals := get_signals_movement(supervised_routes(i));
-               switchs := get_switchs_movement(supervised_routes(i));
+               cvs_movement := get_rails_movement(supervised_routes(i));
+               signals_movement := get_signals_movement(supervised_routes(i));
+               switchs_movement := get_switchs_movement(supervised_routes(i));
                supervised_routes(i) := "";
             end if;
          end loop;
@@ -198,7 +203,7 @@ package body EFD is
                marked_routes(i) := "";
             end if;
          end loop;
-      end removed_marked_route;
+      end remove_marked_route;
 
       procedure monitorise_movements is
          real_rails: Array_Rails;
@@ -215,19 +220,18 @@ package body EFD is
    end Station;
 
    protected body Protections is
-   begin
-      procedure check_scape_material(desire_cvs: in array(1..2); real_cvs: in array (1..2), scape_material_index: in Interger) is
+      procedure check_scape_material(desire_cvs: in Array_Rails; real_cvs: in Array_Rails; scape_material_index: in Integer) is
          count: Integer := 0;
       begin
          for i in 1..2 loop
             if desire_cvs(i) = FREE and real_cvs(i) = OCCUPIED then
-               scape_material(scape_material_index) = True;
+               scape_material(scape_material_index) := True;
             else
-               count ++;
+               count := count + 1;
             end if;
          end loop;
          if count = 2 then
-            scape_material(scape_material_index) = False;
+            scape_material(scape_material_index) := False;
          end if;
       end check_scape_material;
 
@@ -240,26 +244,62 @@ package body EFD is
 	      end if;
 	   end check_switch_position;	
 
-      function get_scape_material return array(1..2) of Boolean is
+      function get_scape_material return Array_Scape_Material is
       begin
          return scape_material;
       end get_scape_material;
 
-      function get_switch_error return array(1..Array_Switchs'Length) of Boolean is
+      function get_switch_error return Array_switch_error is
       begin
          return switch_error;
       end get_switch_error;
-   
    end Protections; 
 
+   -----------------------------------
+   -- EXTRA FUNCTIONS AND PROCEDURES--
+   -----------------------------------
+
+   function create_message return String is
+      station_rails: Array_Rails := Station.get_rail_states;
+      station_signals: Array_Signals := Station.get_signal_states;
+      station_switchs: Array_Switchs := Station.get_switch_states;
+      rails_name: array(1..Array_Rails'Length) of String := ("CVE'1","CVE1","CVA1","CV1","CV2","CVA2","CVE2","CVE'2",others => "");
+      signals_name: array(1..Array_Signals'Length) of String := ("E'1","E1","R1","S1/1","S2/1","S1/2","S2/2","R2","E2","E'2",others => "");
+      switchs_name: array(1..Array_Switchs'Length) of String := ("1","2",others => "");
+      message: String := "";
+
+   begin 
+      for i in 1..station_rails'Length loop
+         if rails_name(i) = "CVA1" or rails_name(i) = "CVA2" then
+            message := message & rails_name(i) & ":" &"[" & Switch'Image(station_switchs(i)) & "," & Rail'Image(station_rails(i)) & "];";
+         else 
+            message := message & rails_name(i) & ":" & Rail'Image(station_rails(i)) & ";";
+
+         end if;
+      end loop;
+      for i in 1..station_signals'Length - 1 loop
+         if (signals_name(i) = "R1" or signals_name(i) = "R2") and station_signals(i) = GREEN then
+            message := message & signals_name(i) & ":" & "WHITE;";
+         else
+            message := message & signals_name(i) & ":" & Signal'Image(station_signals(i)) & ";";
+         end if;
+      end loop;
+      message := message & signals_name(station_signals'Length) & ":" & Signal'Image(station_signals(station_signals'Length));
+      return message;   
+   end create_message;
+
+   -------------------------
+   ----------TASKS----------
+   -------------------------
 
    task body Route is
       next_delay: Time;
       m_routes: Array_Routes;
    begin  
+      config_switch_gpios;
       loop
-         next_delay: Clock + milliseconds(500);
-         m_routes = get_marked_routes;
+         next_delay := Clock + Milliseconds(500);
+         m_routes := get_marked_routes;
          for i in 1..m_routes'Length loop
             if m_routes(i) /="" then
                make_route(m_routes(i));
@@ -267,47 +307,53 @@ package body EFD is
             end if; 
          end loop;
          monitorise_movements;
+         delay until next_delay;
       end loop;
+      terminate_gpio_connection;
+
    end Route;
 
    task body Risks is
       next_delay: Time;
    begin
       loop
-         next_delay := Clock + milliseconds(300)
-         check_scape_material();
-         check_switch_position();
+         next_delay := Clock + Milliseconds(300);
+         Protections.check_scape_material(desire_cvs, real_cvs, 1);
+         Protections.check_switch_position(desire_pos, real_pos, 1);
          delay until next_delay;
       end loop;
    end Risks;
 
    task body Dispatcher is
-      next_delay: Time 
+      next_delay: Time;
       message : String := "";
       command: String :="";
       switch_need: Array_Switchs;
-      switch_errors: Array_Switchs;
+      switch_errors: Array_switch_error;
       error: Boolean;
+      sd: Integer;
    begin
-      config_server;
+      sd := server_h.config_server("", 50345);
+      server_h.accept_connection(sd);
       loop
-         next_delay := Clock + milliseconds(1000);
-         receive_messeage(command);
-         switch_need := Station.get_switchs_movement(command)
+         next_delay := Clock + Milliseconds(1000);
+         server_h.receive_message(command, sd);
+         switch_need := Station.get_switchs_movement(command);
          switch_errors := Protections.get_switch_error;
-         for i in 1.. switch_need loop:
+         for i in switch_need'Range loop
             if switch_need(i) /= UNUSED and switch_errors(i) = True then
-               error = True;
+               error := True;
             end if;
          end loop;
          if Station.check_available_route(command) and error = False then
-            Station.set_set_marked_route(command);
+            Station.set_marked_route(command);
          end if;
-         send_message(message);
-         error = False;
+         message := create_message;
+         server_h.send_message(message, sd);
+         error := False;
          delay until next_delay;
       end loop;
-      close_connection
+      server_h.close_connection(sd);
    end Dispatcher;
 
 end EFD;

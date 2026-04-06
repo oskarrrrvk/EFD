@@ -1,13 +1,11 @@
 #include "server.h"
- 
-int server_socket, listener_socket;
 
 struct sockaddr_in server_addr;
 struct sockaddr_in client_addr;
 
-void config_server()
+int config_server(char *ip, int port)
 {
-
+    int server_socket;
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket < 0) 
     {
@@ -15,12 +13,12 @@ void config_server()
         exit(1);
     }
 
-    printf("Server <IP> : <PORT> %s : %d\n", SERVER_IP, SERVER_PORT);
+    printf("Server <IP> : <PORT> %s : %d\n", ip, port);
     memset(&server_addr, 0, sizeof(server_addr));
 
     server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(SERVER_PORT);
-    server_addr.sin_addr.s_addr = inet_addr(SERVER_IP);
+    server_addr.sin_port = htons(port);
+    server_addr.sin_addr.s_addr = inet_addr(ip);
 
     if (bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
         perror("Bind failed");
@@ -33,11 +31,13 @@ void config_server()
         close(server_socket);
         exit(1);
     }
+    return server_socket;
 }
 
 
-void accept_connection(void)
+int accept_connection(int server_socket)
 {
+    int listener_socket;
     socklen_t addr_len = sizeof(client_addr);
     listener_socket = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
     if ( listener_socket < 0)
@@ -46,10 +46,10 @@ void accept_connection(void)
         close(server_socket);
         exit(1);
     }
-
+    return listener_socket;
 }
 
-void receive_message(char *message)
+void receive_message(char *message, int listener_socket)
 {
     char *buffer = (char*) malloc(MAXLINE);
     if (buffer == NULL) {
@@ -72,12 +72,12 @@ void receive_message(char *message)
     
 }
 
-void send_message(char *message)
+void send_message(char *message, int listener_socket)
 {
     send(listener_socket, message, strlen(message), 0);
 }
 
-void close_connection(void)
+void close_connection(int listener_socket)
 {
     if (listener_socket > 0)
         close(listener_socket);

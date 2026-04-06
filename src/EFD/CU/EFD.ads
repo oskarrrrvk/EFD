@@ -12,6 +12,8 @@ package EFD is
    type Array_Switchs is array(1..2)  of Switch;
    type Array_Rails   is array(1..8)  of Rail;
    type Array_Routes  is array(1..2)  of String;
+   type Array_Scape_Material is array(1..2) of Boolean;
+   type Array_switch_error is array(1..2) of Boolean;
 
    type Movement is record
       route_name: String(1..20);
@@ -33,14 +35,14 @@ package EFD is
       function get_switchs_movement (route:String) return Array_Switchs;
       function get_rails_movement (route: String) return Array_Rails;
       function get_signals_movement (route: String) return Array_Signals;
-      procedure set_route(rt: in String; routes: in out Array_routes )
+      procedure set_route(rt: in String; routes: in out Array_Routes );
       procedure set_marked_route(route: in String);
       procedure set_supervised_route(route: in String);
       function get_marked_routes return Array_Routes;
       function get_supervised_routes return Array_Routes;
       function check_available_route (route: String) return Boolean; 
       procedure make_route(route: in String);
-      procedure remove_supervised_route(main_signal_name: in String, routes: in out Array_routes);
+      procedure remove_supervised_route(main_signal_name: in String);
       procedure remove_marked_route(main_signal_name: in String);
       procedure monitorise_movements;
       private 
@@ -123,7 +125,7 @@ package EFD is
                (RED,RED,RED,RED,GREEN,RED,RED,RED,RED,RED),
                (REVERS,UNUSED)),
             ("M S1/1 A",
-               (FREE,MANOUEVER,MANOUVER,MANOUVER,FREE,FREE,FREE,FREE),
+               (FREE,MANOUVER,MANOUVER,MANOUVER,FREE,FREE,FREE,FREE),
                (RED,RED,RED,RED_WHITE,RED,RED,RED,RED,RED,RED),
                (STRAIGHT,UNUSED)),
             ("M S2/1 A",
@@ -137,15 +139,17 @@ package EFD is
    pragma Priority(System.Priority'First + 5);
       procedure check_scape_material(desire_cvs: Array_Rails; real_cvs: Array_Rails; blockade: Integer);
       procedure check_switch_position(desire_pos: in Switch; real_pos: in Switch; switch_index: Integer);
-      function get_scape_material return array(1..2) of Boolean;
-      function get_switch_error return array(1..Array_Switchs'Length) of Boolean;
+      function get_scape_material return Array_Scape_Material;
+      function get_switch_error return Array_switch_error;
       private
-         scape_material: array(1..2) of Boolean := (False,False);
-         switch_error: array(1..Array_Switchs'Length) of Boolean := (False,False);
+         scape_material: Array_Scape_Material := (False,False);
+         switch_error: Array_switch_error := (False,False);
    end Protections;
       
    procedure idle;
    
+   function create_message() return String;
+
    task Route is
       -- pragma Priority(System.Priority'First + 1);
    end Route;
